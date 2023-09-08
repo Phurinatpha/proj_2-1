@@ -1,0 +1,329 @@
+{% extends "project/base.html" %}
+{% block content %}
+
+<style>
+  .form-popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 5%;
+    max-width: 500px;
+  }
+
+  .form-container input[type=text],
+  .form-container input[type=email],
+  .form-container input[type=password] {
+    color: #000000;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+
+  .form-container button[type=submit],
+  .form-container button[type=button] {
+    background-color: #dbc1ac;
+    color: #000000;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    width: 30%;
+    margin-top: 10px;
+  }
+
+  .form-container button[type=submit]:hover {
+    background-color: #a18c7b;
+  }
+
+  .form-container button:hover {
+    background-color: #a18c7b;
+  }
+
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
+  #profile_info_blog {
+    position: relative;
+    font-size: large;
+    min-width: 250px;
+    min-height: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #f8f8f8;
+    border-radius: 5%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px 20px;
+    margin-bottom: 1%;
+}
+
+
+/* #contact_display {
+    position: relative;
+    font-size: large;
+    background-color: #f8f8f8;
+    border-radius: 10%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 60px 40px;
+    width: 55%;
+    margin: 0 auto;
+} */
+
+  .edit{
+    background-color: #dbc1ac;
+    width: 50%;
+    height: 25%;
+    border-color: #e3ae6a;
+    margin-top: 2%;
+    border-radius: 5%;
+    border: none;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    font-size:90%;
+  }
+
+  .edit:hover{
+    background-color: #a18c7b;
+    width: 50%;
+    border-color: #e3ae6a;
+    margin-top: 2%;
+    border-radius: 5%;
+    border: none;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    font-size:90%;
+  }
+</style>
+<div id="profile_area">
+<div id="flash_message">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    
+      {% for message in messages %}
+        <div class="flash-message">{{ message }}</div>
+      {% endfor %}
+    
+  {% endif %}
+  {% endwith %}
+  </div>
+<div class="container" id="profile_info_blog">
+
+  <div class="col text-center">
+    <div id="profile_" class="row-md">
+      <img class="tw-user-profile rounded-circle" wi id="img_profile" src="{{ current_user.avatar_url }} ">
+    </div>
+    <br></br>
+    <div class="row-md">
+      <p id="name_profile" style="color:#000000;">Name : {{ current_user.name }} </p>
+      <p id="email_profile" style="color:#000000;">Email : {{ current_user.email }} </p>
+      <p id="user_id" hidden>{{ current_user.id }}</p>
+    </div>
+    <div class="row-md">
+      <br>
+      <button class="edit" id="editBut">Edit profile</button><br>
+    </div>
+  </div>
+</div>
+<div class="container" id="profile_info_blog">
+  <!-- <div id="contact_display" class="form-signin"> -->
+    <h2>History</h2>
+    <table class="table-striped border-success" id="user_booked_table">
+      <thead>
+        <tr>
+          <th data-field="id">
+            <span class="text-success">
+              Id
+            </span>
+          </th>
+          <th data-field="stat_date">
+            <span class="text-success">
+              Start Date
+            </span>
+          </th>
+          <th data-field="end_date">
+            <span class="text-success">
+              End Date
+            </span>
+          </th>
+          <th data-field="locker_id">
+            <span class="text-success">
+              Locker Id
+            </span>
+          </th>
+          <th data-field="user_id">
+            <span class="text-success">
+              u id
+            </span>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  <!-- </div> -->
+
+</div>
+
+<div id="myForm" class="form-popup">
+  <form action="/lab13/submit-form" method="post" class="form-container" onSubmit="show_flash()">
+
+    <label for="name" style="color:rgb(0, 0, 0);"><b>Name</b></label>
+    <input type="text" name="name" value="{{current_user.name}}" required>
+
+    <label for="email" style="color:rgb(0, 0, 0);"><b>Email</b></label>
+    <input type="email" name="email" value="{{current_user.email}}" required>
+
+    <label for="otp" style="color:rgb(0, 0, 0);"><b>OTP</b></label>
+    <input type="text" name="otp" id="otp" required>
+    <input type="hidden" id="id" name="id" value="{{ current_user.id }}">
+    <input type="hidden" id="user_pic" name="user_pic" value="{{ current_user.avatar_url }}">
+
+    <button type="button" class="btn" id="sendOtp" onclick="sendOTP(event)">Send OTP</button>
+    <button type="submit" class="btn" id="submitForm" hidden>Submit</button>
+    <button type="button" class="btncancel" id="closeForm">Close</button>
+  </form>
+</div>
+
+
+<div id="myFormPassword" class="form-popup">
+  <form action="/lab13/change-password" method="post" class="form-container">
+
+    <input type="hidden" name="name" value="{{current_user.name}}" required>
+
+    <input type="hidden" name="email" value="{{current_user.email}}" required>
+
+    <label for="password" style="color:rgb(0, 0, 0);"><b>Password</b></label>
+    <input type="password" name="curr_password" id="curr_password" required>
+
+    <label for="password" style="color:rgb(0, 0, 0);"><b>New Password</b></label>
+    <input type="password" name="new_password" id="new_password" required>
+
+    <label for="password" style="color:rgb(0, 0, 0);"><b>Confirm Password</b></label>
+    <input type="password" name="confirm_password" id="confirm_password" required>
+    <button type="submit" class="btn">Submit</button>
+    <button type="button" class="btncancel" id="closeForm2">Close</button>
+  </form>
+</div>
+</div>
+
+<script>
+  const openFormButton = document.getElementById("editBut");
+  const closeFormButton = document.getElementById("closeForm");
+  const closePassForm = document.getElementById("closeForm2");
+  const myForm = document.getElementById("myForm");
+  const myFormPassword = document.getElementById("myFormPassword");
+
+  openFormButton.addEventListener("click", () => {
+    myForm.style.display = "block";
+  });
+
+  closeFormButton.addEventListener("click", () => {
+    myForm.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target == myForm) {
+      myForm.style.display = "none";
+    }
+  });
+
+
+  closePassForm.addEventListener("click", () => {
+    myFormPassword.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target == myFormPassword) {
+      myFormPassword.style.display = "none";
+    }
+  });
+
+  var user_id = $("#user_id").text()
+
+  function populate_table(contact_data) {
+    $('#user_booked_table').bootstrapTable('destroy');
+    $('#user_booked_table').bootstrapTable({
+      data: contact_data.filter(function(item) {
+        return item.user_id == user_id;
+      }),
+    columns: [
+      { field: 'id', title: 'ID', visible: false },
+      { field: 'user_id', title: 'User ID', visible: false },
+      { field: 'stat_date', title: 'Start Date', formatter: function(value){
+        return moment(value).format('D MMM YY kk:mm ');
+      }
+    },
+    {field: 'end_date', title: 'End Date', formatter: function(value){
+  
+      return moment(value).format('D MMM YY kk:mm ');
+    }
+  },
+  { field: 'locker_id', title: 'Locker Number'}
+    ]
+  });
+  }
+
+  $(document).ready(function () {
+    (function () {
+      $.getJSON("/all_data", populate_table);
+    })();
+  });
+
+
+  function sendOTP(event) {
+  event.preventDefault(); // prevent form submission
+  
+  // Get the user's email and ID from the hidden input fields
+  const email = document.querySelector('input[name="email"]').value;
+  
+  // Make a POST request to the server to generate and send an OTP
+  fetch('/send-otp', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: email,
+    })
+    
+  });
+  $("#submitForm").removeAttr("hidden");  
+}
+function show_flash(){
+  $('#flash_message').load(' #flash_message')
+}
+
+</script>
+{% endblock %}

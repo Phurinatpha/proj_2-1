@@ -1,0 +1,308 @@
+{% extends "project/base.html" %}
+{% block content %}
+<div id="index_area">
+  <div id="flash_message">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for message in messages %}
+          <div class="flash-message">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% endwith %}
+    </div>
+  <!--div class="flash-message" >This time is already reserved.</div-->
+  <div class="flex-container">
+    <div class="item" id="1" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="2" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="3" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="4" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="5" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="6" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="7" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="8" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="9" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    
+    <div class="item" id="10" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="11" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="12" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="13" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="14" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="15" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="16" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="17" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="18" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>    
+  
+    <div class="item" id="19" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="20" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="21" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="22" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="23" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="24" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="25" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="26" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="27" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    
+    <div class="item" id="28" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="29" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="30" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="31" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="32" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="33" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="34" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="35" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    <div class="item" id="36" onclick="get_lockerID(this.id)"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image"></div>
+    
+  </div>
+
+  <div class="wrapper" id="reserve_form" hidden="hidden">
+    {% if current_user.is_authenticated %}
+    <!-- {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash-message">
+      {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %} -->
+    <form class="form-signin" id="sent_form">
+      <div id="locker_number" style="font-size: 20px;"><b>Locker number:</b></div>
+      <label>Start Date</label>
+      <input type="datetime-local" class="form-control"  oninput="set_min()" name="stat_date" id="stat_date" required />
+      <label>End Date</label>
+      <input type="datetime-local" class="form-control" name="end_date" id="end_date" required readonly/>
+      <input type="hidden" name="locker_id" id="num" class="form-control" required readonly />
+      <input type="hidden" name="user_id" id="user_id" class="form-control" value="{{ current_user.id }}" required
+        readonly />
+      <input type="hidden" name="id" id="id" value=""/>
+      <input type="hidden" name="timezone" id="timezone" value=""/>
+      <input type="submit" name="submit" value="Reserve">
+      <button type="button" class="e float-right" id="cancel_form" placeholder="Cancel">cancel</button>
+    </form>
+    {% else %}
+    <div class="form-signin" id="sent_form" style="text-align: center;">
+      <div style="padding-bottom: 25px; padding-top: 25px;"><b>Please log in before reservation</b></div>
+      <button onclick="window.location.href='http://localhost:56799/login'">Login</button>
+      <button type="button" id="cancel_form" onclick="cancle()">Cancle</button>
+
+    </div>
+    {% endif %}
+    <div id="contact_display" class="form-signin">
+      <!-- <h2>Contacts:</h2> -->
+      <table class="table-striped" id="booked-table" >
+        <thead>
+          <tr>
+            <th data-field="id" hidden>
+              <span class="text-success">
+                id
+              </span>
+            </th>
+            <th data-field="stat_date">
+              <span class="text-success">
+                Start Date
+              </span>
+            </th>
+            <th data-field="end_date">
+              <span class="text-success">
+                End Date
+              </span>
+            </th>
+            <th data-field="locker_id">
+              <span class="text-success">
+                Locker Id
+              </span>
+            </th>
+            <th data-field="user_id" hidden>
+              <span class="text-success">
+                u id
+              </span> 
+            </th>
+            <th data-field="operation" data-formatter="actionFormatter" data-events="operateEvents">
+              <span class="text-success" >
+                แก้ไข/ยกเลิก
+              </span>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  var timezone_offset_minutes = new Date().getTimezoneOffset();
+  var timezone_offset_hours = -timezone_offset_minutes / 60;
+  document.getElementById("timezone").value = 'Etc/GMT' + (timezone_offset_hours >= 0 ? '-' : '+') + Math.abs(timezone_offset_hours);
+
+  $(document).ready(function () {
+    (function () {
+      $.getJSON("/data", populate_table);
+    })()
+  });
+
+  var now = new Date();
+  var locker_id = 0; 
+  var auto_date = now.getFullYear() + '-' +
+  ('0' + (now.getMonth()+1)).slice(-2) + '-' +
+  ('0' + now.getDate()).slice(-2) + 'T00:00'
+  document.querySelector("#stat_date").setAttribute("min", auto_date);
+
+  function set_min(){
+    if (stat_date.value != ""){
+      $('#end_date').attr('readonly', false);
+      document.querySelector("#end_date").setAttribute("min", stat_date.value);
+    }
+  }
+
+  function get_lockerID(Id) {
+  locker_id = Id;
+  console.log("id =" + locker_id);
+  let userid = $("#user_id").val();
+  locker_anim = document.getElementById(Id);
+    locker_anim.getElementsByClassName("locker")[0].setAttribute("class", "locker_open");
+    $('#num').val(Id);
+  if (userid) {
+    document.getElementById("locker_number").innerHTML ="<b>Locker number : "+locker_id+"</b>";
+    setTimeout(function(){
+      $('#reserve_form').attr('hidden', false);
+      $.getJSON("/data", populate_table);
+    }, 400);
+    //document.querySelector("#end_date").setAttribute("min", stat_date.value);
+  } else {
+    setTimeout(function(){
+      $('#reserve_form').attr('hidden', false);
+      $.getJSON("/data", populate_table);
+    }, 400);
+  }
+}
+
+  $("#cancel_form").click(function (event) {
+    cancle();
+    clearForm();
+  });
+ 
+  const myForm = document.getElementById("reserve_form");
+  window.addEventListener("click", (event) => {
+    if (event.target === myForm) {
+      cancle();
+    }
+  });
+
+  function cancle(){
+    $('#reserve_form').attr('hidden', 'hidden');
+      locker_anim = document.getElementById(locker_id);
+      setTimeout(function(){
+        locker_anim.getElementsByClassName("locker_open")[0].setAttribute("class", "locker");
+    }, 100);
+  }
+  
+  $("#sent_form").submit(function (event) {
+  // prevent default html form submission action
+  event.preventDefault();
+
+    var formData = {};
+    $(":input").each(function () {
+      var key = $(this).attr('name');
+      var val = $(this).val();
+      if (key != 'submit') {
+        formData[key] = val;
+      }
+    });
+    console.log(formData);      
+    var url = "/booking";    
+    // make a POST call to the back end w/ a callback to refresh the table
+    $.post(url, formData, function (data) {
+      $('#flash_message').load(' #flash_message')
+       locker_anim = document.getElementById(locker_id);
+       setTimeout(function(){
+         locker_anim.getElementsByClassName("locker_open")[0].setAttribute("class","locker")
+       }, 100);
+      clearForm();
+      refreshdata();
+  });
+});
+
+function refreshdata(){
+  $.get('/data', function(data) {
+        populate_table(data);
+    });
+}
+
+function populate_table(contact_data) {
+  $('#booked-table').bootstrapTable('destroy');
+  $('#booked-table').bootstrapTable({
+    data: contact_data.filter(function(item) {  
+      return item.locker_id == locker_id;
+    }),
+    columns: [
+      { field: 'id', title: 'ID', visible: false },
+      { field: 'user_id', title: 'User ID', visible: false },
+      { field: 'locker_id', title: 'Locker ID', visible: false},
+      { field: 'stat_date', title: 'Start Date', formatter: function(value){
+        return moment(value).format('D MMM YY kk:mm ');
+      }
+    },
+    {field: 'end_date', title: 'End Date', formatter: function(value){
+  
+      return moment(value).format('D MMM YY kk:mm ');
+    }
+  },
+      { field: 'operation', title:'Edit/Delete' }
+    ]
+  });
+
+}
+
+
+  function clearForm() {
+      $('#sent_form')[0].reset();
+      $('#end_date').attr('readonly', true);
+      $('#id').val('');
+    }
+
+  function alert_User() {
+    if (confirm("Please log in to make a reservation.")) {
+      return window.location.href = "http://localhost:56799/login";
+    }
+  }
+
+  function actionFormatter(value, row, index) {
+      return [
+        '<a class="edit" href="javascript:void(0)" title="Like">',
+        '✏️',
+        '</a>  ',
+        '<a class="remove" href="javascript:void(0)" title="Remove">',
+        '🗑️',
+        '</a>'
+      ].join('')
+    }
+
+    window.operateEvents = {
+      'click .edit': function (e, value, row, index) {
+        prePopulateForm(row);
+      },
+      'click .remove': function (e, value, row, index) {
+        cancleReserve(row);
+      }
+    }
+
+    function prePopulateForm(row) {
+      $('#sent_form')[0].reset();
+      $('#stat_date').val(row.stat_date);
+      $('#end_date').val(row.end_date);
+      $('#id').val(row.id);   
+    }
+
+    function cancleReserve(row) {
+      if (!confirm("Delete this reserve?")) {
+        return false;
+      }
+      var url = "/cancle"
+      var formData = { 'id': row.id };
+      $.post(url, formData, function (contact_data) {
+        refreshdata();
+      });
+    }
+    
+</script>
+
+{% endblock %}

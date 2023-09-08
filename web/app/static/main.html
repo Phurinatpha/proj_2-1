@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<style>
+    body{
+        background-color: #dbc1ac; 
+    }
+    *{
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+    }
+    div{
+        color:#a37047;
+        top:0%;
+        position: fixed;
+        font-weight: bold;
+        overflow: hidden;
+        position: relative;
+        font-size: 70px;
+       
+        
+    }
+    #locker {
+        text-decoration: none;
+        vertical-align: top;
+        color: #c49977; 
+        overflow: hidden;
+        position: relative;
+        font-size: 70px;
+        display: inline-block;
+      }
+
+      #locker::before,
+      #locker::after {
+       content: '';
+        position: absolute;
+        width: 100%;
+        left: 0;
+      }
+      #locker::before {
+        height: 2px;
+        bottom: 0;
+        transform-origin: 100% 50%;
+        transform: scaleX(0);
+        transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      #locker::after {
+        content: "Locker";
+        font-weight: bold;
+        top: 0;
+        transform-origin: 100% 50%;
+        transform: translate3d(200%, 0, 0);
+        transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+        color: #c49977; 
+      }
+      
+      #locker:hover::before {
+        transform-origin: 0% 50%;
+        transform: scaleX(1);
+      }
+      #locker:hover::after {
+        transform: translate3d(0, 0, 0);
+      }
+      
+      #locker span {
+        display: inline-block;
+        transition: transform .3s cubic-bezier(0.76, 0, 0.24, 1);
+      }
+      
+      #locker:hover span {
+        transform: translate3d(-200%, 0, 0);
+      }
+      #main_area{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        top:50px;
+      }
+      #door{
+        
+        width:240px;
+        height: 220px;
+      }
+      p{
+        padding-bottom:50px;
+      }
+
+</style>
+<link rel="stylesheet" href="static/css/dark.css" >
+</head>
+<body>
+<div id="main_area">
+<p><a href="" onclick="return false" data-replace="get a link" id="locker"><span><b>Locket&nbsp;</b></span></a>&nbsp;website</p>
+
+<div class="item open"><a href="/home"><img class="locker" src="/static/img/locker.jpg" alt="Normal Image" id="door"></a></div>
+</div>
+  <img class="image" src="/static/img/cute-orange.png" alt="Normal Image">
+</body>
+</html>
